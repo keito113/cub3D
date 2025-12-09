@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:48:36 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/06 13:31:18 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/12/08 14:45:22 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,19 @@ static int	finalize_map(t_game *g, t_list *lst)
 
 static int	handle_line(t_game *g, char *line, int *in_map, t_list **map)
 {
+	int	len;
+
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
 	if (*in_map)
 		return (push_line(map, line));
 	if (parse_id_line(g, line, in_map) == 0)
+	{
+		if (*in_map)
+			return (push_line(map, line));
 		return (0);
-	if (*in_map)
-		return (push_line(map, line));
+	}
 	free(line);
 	return (fatal(g, ERR_PARSE, "Invalid line"));
 }
@@ -94,7 +101,11 @@ int	parse_file(t_game *g, const char *path)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	if (finalize_map(g, map))
-		return (cleanup_err(fd, &map));
+	if (finalize_map(g, map) != 0)
+	{
+		ft_lstclear(&map, free);
+		return (1);
+	}
+	ft_lstclear(&map, NULL);
 	return (0);
 }

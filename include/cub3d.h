@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/06 16:50:30 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/12/09 12:53:48 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,12 @@ int				game_init(t_game *g, const char *path);
 
 // map_parse_utils.c
 int				parse_color(int *out, char *s);
+char			*skip_ws(char *s);
+
+// map_parse.c
+int				parse_id_line(t_game *g, char *line, int *in_map);
+
+// read_map.c
+int				parse_file(t_game *g, const char *path);
 
 #endif
