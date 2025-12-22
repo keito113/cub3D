@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 16:03:44 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/07 14:34:57 by keitabe          ###   ########.fr       */
+/*   Created: 2025/04/28 17:13:24 by takawagu          #+#    #+#             */
+/*   Updated: 2025/05/04 21:04:36 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,34 @@ int	ft_atoi(const char *nptr)
 {
 	int	i;
 	int	sign;
+	int	num;
 
 	i = 0;
 	sign = 1;
-	while (*nptr == ' ' || *nptr == '\n' || *nptr == '\t' || *nptr == '\v'
-		|| *nptr == '\f' || *nptr == '\r')
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	num = 0;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
 	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
+		i++;
 	}
-	while ('0' <= *nptr && *nptr <= '9')
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		i = i * 10 + (*nptr - '0');
-		nptr++;
+		if (nptr[i] == '-')
+			sign = sign * (-1);
+		i++;
 	}
-	return (i * sign);
+	while ('0' <= nptr[i] && nptr[i] <= '9')
+	{
+		num = num * 10 + (nptr[i] - '0');
+		i++;
+	}
+	return (num * sign);
 }
 
 // #include <stdio.h>
 
-// int	main(int ac, char *av[])
+// int	main(void)
 // {
-// 	if (ac != 2)
-// 	{
-// 		printf("\n");
-// 		return (0);
-// 	}
-// 	printf("ft_atoi = %d\n", ft_atoi(av[1]));
-// 	printf("atoi = %d\n", atoi(av[1]));
+// 	const char *str = "082";
+// 	printf("結果：%d", ft_atoi(str));
 // 	return (0);
 // }

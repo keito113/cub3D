@@ -1,0 +1,23 @@
+/* XPM */
+static char *wall_south[] = {
+"16 16 3 1",
+"X c #000000",
+". c #FFFFFF",
+"  c #DC143C",
+"XXXXXXXXXXXXXXXX",
+"X              X",
+"X       .      X",
+"X       .      X",
+"X       .      X",
+"X       .      X",
+"X       .      X",
+"X       .      X",
+"X       .      X",
+"X       .      X",
+"X              X",
+"X     .....    X",
+"X      ...     X",
+"X       .      X",
+"X              X",
+"XXXXXXXXXXXXXXXX"
+};

@@ -3,145 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/27 13:32:59 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/07 14:26:00 by keitabe          ###   ########.fr       */
+/*   Created: 2025/05/01 15:38:12 by takawagu          #+#    #+#             */
+/*   Updated: 2025/05/01 16:47:26 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	mem_len(size_t s_len, size_t len, size_t start)
+char	*ft_substr(const char *s, unsigned int start, size_t len)
 {
-	if (start >= s_len)
-		return (0);
-	else
-	{
-		if (len < s_len - start)
-			return (len);
-		else
-			return (s_len - start);
-	}
-	return (0);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*str;
-	size_t	i;
+	char	*dst;
 	size_t	s_len;
-	size_t	need_len;
+	size_t	i;
 
-	if (s == NULL)
+	if (!s)
 		return (NULL);
 	s_len = ft_strlen(s);
-	need_len = mem_len(s_len, len, (size_t)start);
-	str = malloc(need_len + 1);
-	if (!str)
+	if (start >= s_len)
+		return (ft_calloc(1, sizeof(char)));
+	if (s_len - start < len)
+		len = s_len - start;
+	dst = ft_calloc(len + 1, sizeof(char));
+	if (!dst)
 		return (NULL);
 	i = 0;
-	while (i < need_len)
+	while (dst != NULL && s != NULL && i < len)
 	{
-		str[i] = s[start + i];
+		dst[i] = s[start + i];
 		i++;
 	}
-	str[i] = '\0';
-	return (str);
+	return (dst);
 }
 
-// #include "libft.h"
 // #include <stdio.h>
+// #include <stdlib.h>
 
 // int	main(void)
 // {
-// 	char	*str;
-// 	char	*test;
-// 	int		start;
-// 	int		len;
+// 	char *s1 = ft_substr("Helloooooo!!", 3, 8);
+// 	printf("%s\n", s1);
+// 	free(s1);
 
-// 	str = "Hello, world!";
-// 	start = 7;
-// 	len = 5;
-// 	test = ft_substr(str, start, len);
-// 	printf("test1 = %s\n", test);
-// 	free(test);
-// 	str = "Hello";
-// 	start = 10;
-// 	len = 3;
-// 	test = ft_substr(str, start, len);
-// 	printf("test2 = %s\n", test);
-// 	free(test);
-// 	str = "Hello";
-// 	start = 5;
-// 	len = 2;
-// 	test = ft_substr(str, start, len);
-// 	printf("test3 = %s\n", test);
-// 	free(test);
-// 	str = "abcdef";
-// 	start = 2;
-// 	len = 10;
-// 	test = ft_substr(str, start, len);
-// 	printf("test4 = %s\n", test);
-// 	free(test);
-// 	str = "Edge";
-// 	start = 1;
-// 	len = 0;
-// 	test = ft_substr(str, start, len);
-// 	printf("test5 = %s\n", test);
-// 	free(test);
-// 	str = "Sample";
-// 	start = 0;
-// 	len = 3;
-// 	test = ft_substr(str, start, len);
-// 	printf("test6 = %s\n", test);
-// 	free(test);
-// 	str = "Sample";
-// 	start = 0;
-// 	len = 6;
-// 	test = ft_substr(str, start, len);
-// 	printf("test7 = %s\n", test);
-// 	free(test);
-// 	str = "Sample";
-// 	start = 0;
-// 	len = 10;
-// 	test = ft_substr(str, start, len);
-// 	printf("test8 = %s\n", test);
-// 	free(test);
-// 	str = "";
-// 	start = 0;
-// 	len = 5;
-// 	test = ft_substr(str, start, len);
-// 	printf("test9 = %s\n", test);
-// 	free(test);
-// 	str = "";
-// 	start = 5;
-// 	len = 3;
-// 	test = ft_substr(str, start, len);
-// 	printf("test10 = %s\n", test);
-// 	free(test);
-// 	str = "abc";
-// 	start = 2;
-// 	len = 1;
-// 	test = ft_substr(str, start, len);
-// 	printf("test11 = %s\n", test);
-// 	free(test);
-// 	str = "abc";
-// 	start = 2;
-// 	len = 5;
-// 	test = ft_substr(str, start, len);
-// 	printf("test12 = %s\n", test);
-// 	free(test);
-// 	str = NULL;
-// 	start = 0;
-// 	len = 5;
-// 	test = ft_substr(str, start, len);
-// 	if (!test)
-// 		printf("test13 = NULL\n");
-// 	else
-// 	{
-// 		printf("test13 = %s\n", test);
-// 		free(test);
-// 	}
 // 	return (0);
 // }

@@ -3,43 +3,55 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/14 17:09:03 by keitabe           #+#    #+#              #
-#    Updated: 2025/12/05 17:46:41 by keitabe          ###   ########.fr        #
+#    Created: 2025/04/25 10:06:26 by takawagu          #+#    #+#              #
+#    Updated: 2025/05/24 14:54:37 by takawagu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME    := libftprintf.a
+CC  = cc
 
-CC      := cc
-CFLAGS  := -Wall -Wextra -Werror -I. -I..
-AR      := ar
-ARFLAGS := rcs
-RM      := rm -f
+CFLAGS = -Wall -Wextra -Werror -Ilibft
 
-SRCS    := \
+NAME = libftprintf.a
+
+SRCS = \
 	ft_printf.c \
-	ft_spec_char.c \
-	ft_spec_hex.c \
-	ft_spec_num.c \
-	ft_spec_string_ptr.c
+	ft_printf_utils.c\
+	ft_utoa.c \
+	print_char.c \
+	print_str.c \
+	print_int.c \
+	print_unsigned.c \
+	print_hex.c \
+	print_pointer.c \
 
-OBJS    := $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o)
+
+LIBFT_DIR = libft
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+$(LIBFT_LIB):
+	make -C $(LIBFT_DIR)
 
-%.o: %.c ft_printf.h ../libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJS) $(LIBFT_LIB)
+	cp $(LIBFT_LIB) .
+	ar x libft.a
+	ar rcs $(NAME) $(OBJS) $(filter-out $(OBJS), *.o)
+	rm -f libft.a
 
 clean:
-	$(RM) $(OBJS)
+	rm -f $(OBJS)
+	rm -f $(filter-out $(OBJS), *.o)
+	make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME) libft.a
+	rm -f $(filter-out $(OBJS), *.o)
+	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/09 12:53:48 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/12/22 17:31:14 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,112 +32,74 @@ enum			e_tex
 /* MLX画像1枚分の情報 */
 typedef struct s_img
 {
-	/* MLXの画像ハンドル */
-	void		*ptr;
-	/* ピクセルデータ先頭アドレス */
-	char		*addr;
-	/* 1ピクセルあたりのビット数 */
-	int			bpp;
-	/* 1行のバイト数 */
-	int			line_len;
-	/* エンディアン指定 */
-	int			endian;
-	/* 画像の幅 */
-	int			w;
-	/* 画像の高さ */
-	int			h;
+	void		*ptr;			/* MLXの画像ハンドル */
+	char		*addr;			/* ピクセルデータ先頭アドレス */
+	int			bpp;			/* 1ピクセルあたりのビット数 */
+	int			line_len;		/* 1行のバイト数 */
+	int			endian;			/* エンディアン指定 */
+	int			w;				/* 画像の幅 */
+	int			h;				/* 画像の高さ */
 }				t_img;
 
 /* .cub設定（パスと色） */
 typedef struct s_config
 {
-	/* テクスチャパス配列: NO, SO, WE, EA */
-	char		*tex_path[TEX_MAX];
-	/* 床色 (0xRRGGBB) */
-	int			floor_color;
-	/* 天井色 (0xRRGGBB) */
-	int			ceil_color;
-	/* 取得済みフラグ用ビットマスク */
-	int			parsed_mask;
+	char		*tex_path[TEX_MAX];	/* テクスチャパス配列: NO, SO, WE, EA */
+	int			floor_color;		/* 床色 (0xRRGGBB) */
+	int			ceil_color;			/* 天井色 (0xRRGGBB) */
+	int			parsed_mask;		/* 取得済みフラグ用ビットマスク */
 }				t_config;
 
 /* マップ情報 */
 typedef struct s_map
 {
-	/* マップの2次元配列 */
-	char		**grid;
-	/* マップの幅 */
-	int			width;
-	/* マップの高さ */
-	int			height;
+	char		**grid;			/* マップの2次元配列 */
+	int			width;			/* マップの幅 */
+	int			height;			/* マップの高さ */
 }				t_map;
 
 /* プレイヤー状態 */
 typedef struct s_player
 {
-	/* 位置X */
-	double		x;
-	/* 位置Y */
-	double		y;
-	/* 向きベクトルX */
-	double		dir_x;
-	/* 向きベクトルY */
-	double		dir_y;
-	/* カメラ平面ベクトルX */
-	double		plane_x;
-	/* カメラ平面ベクトルY */
-	double		plane_y;
+	double		x;				/* 位置X */
+	double		y;				/* 位置Y */
+	double		dir_x;			/* 向きベクトルX */
+	double		dir_y;			/* 向きベクトルY */
+	double		plane_x;		/* カメラ平面ベクトルX */
+	double		plane_y;		/* カメラ平面ベクトルY */
 }				t_player;
 
 /* キー入力状態 */
 typedef struct s_input
 {
-	/* Wキー押下フラグ */
-	int			key_w;
-	/* Sキー押下フラグ */
-	int			key_s;
-	/* Aキー押下フラグ */
-	int			key_a;
-	/* Dキー押下フラグ */
-	int			key_d;
-	/* 左回転キー押下フラグ */
-	int			key_left;
-	/* 右回転キー押下フラグ */
-	int			key_right;
+	int			key_w;			/* Wキー押下フラグ */
+	int			key_s;			/* Sキー押下フラグ */
+	int			key_a;			/* Aキー押下フラグ */
+	int			key_d;			/* Dキー押下フラグ */
+	int			key_left;		/* 左回転キー押下フラグ */
+	int			key_right;		/* 右回転キー押下フラグ */
 }				t_input;
 
 /* 描画関連 */
 typedef struct s_gfx
 {
-	/* MLXインスタンス */
-	void		*mlx;
-	/* ウィンドウハンドル */
-	void		*win;
-	/* 画面バッファ */
-	t_img		screen;
-	/* 壁テクスチャ NO/SO/WE/EA */
-	t_img		tex[TEX_MAX];
-	/* ウィンドウ幅 */
-	int			win_w;
-	/* ウィンドウ高さ */
-	int			win_h;
+	void		*mlx;			/* MLXインスタンス */
+	void		*win;			/* ウィンドウハンドル */
+	t_img		screen;			/* 画面バッファ */
+	t_img		tex[TEX_MAX];	/* 壁テクスチャ NO/SO/WE/EA */
+	int			win_w;			/* ウィンドウ幅 */
+	int			win_h;			/* ウィンドウ高さ */
 }				t_gfx;
 
 /* ゲーム全体の状態 */
 typedef struct s_game
 {
-	/* 設定データ */
-	t_config	config;
-	/* マップデータ */
-	t_map		map;
-	/* プレイヤー状態 */
-	t_player	player;
-	/* 入力状態 */
-	t_input		input;
-	/* グラフィック状態 */
-	t_gfx		gfx;
-	/* ループ継続フラグ */
-	int			is_running;
+	t_config	config;		/* 設定データ */
+	t_map		map;		/* マップデータ */
+	t_player	player;		/* プレイヤー状態 */
+	t_input		input;		/* 入力状態 */
+	t_gfx		gfx;		/* グラフィック状態 */
+	int			is_running;	/* ループ継続フラグ */
 }				t_game;
 
 // error.c
@@ -163,3 +125,4 @@ int				parse_id_line(t_game *g, char *line, int *in_map);
 int				parse_file(t_game *g, const char *path);
 
 #endif
+

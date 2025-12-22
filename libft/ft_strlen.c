@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 15:12:53 by keitabe           #+#    #+#             */
-/*   Updated: 2025/04/25 17:17:24 by keitabe          ###   ########.fr       */
+/*   Created: 2025/04/25 09:45:27 by takawagu          #+#    #+#             */
+/*   Updated: 2025/04/26 15:09:42 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i] != '\0')
+	{
 		i++;
+	}
 	return (i);
 }
 
@@ -26,11 +28,9 @@ size_t	ft_strlen(const char *s)
 
 // int	main(void)
 // {
-// 	char	*str;
-// 	int		len;
+// 	const char	*test;
 
-// 	str = "hello";
-// 	len = ft_strlen(str);
-// 	printf("len = %d\n", len);
+// 	test = "hello";
+// 	printf("結果：%zu", ft_strlen(test));
 // 	return (0);
 // }
