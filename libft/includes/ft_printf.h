@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/12 10:02:48 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/05 17:46:25 by keitabe          ###   ########.fr       */
+/*   Created: 2025/05/12 09:04:08 by takawagu          #+#    #+#             */
+/*   Updated: 2025/11/04 12:34:30 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 # define FT_PRINTF_H
 
 # include "libft.h"
-# include <limits.h>
 # include <stdarg.h>
+# include <stdlib.h>
 # include <unistd.h>
 
-int	ft_printf(const char *str, ...);
-int	handle_c(va_list *ap);
-int	handle_percent(va_list *ap);
-int	handle_hex_low(va_list *ap);
-int	handle_hex_up(va_list *ap);
-int	handle_d_i(va_list *ap);
-int	handle_u(va_list *ap);
-int	handle_s(va_list *ap);
-int	handle_p(va_list *ap);
+int		ft_printf(const char *format, ...);
+int		dispatch_format(char specifier, va_list *args);
+int		handle_format(const char *format, va_list *args, int *index);
+int		print_char(char c);
+int		print_str(const char *s);
+int		print_int(int n);
+int		print_unsigned(unsigned int un);
+int		print_hex(unsigned int xn, int uppercase);
+int		print_pointer(void *p);
+char	*ft_utoa(unsigned int un);
 
 #endif

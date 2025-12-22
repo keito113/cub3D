@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 12:39:26 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/01 13:08:05 by keitabe          ###   ########.fr       */
+/*   Created: 2025/05/01 23:06:54 by takawagu          #+#    #+#             */
+/*   Updated: 2025/05/12 16:42:00 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (!s || fd < 0)
+	if (!s)
 		return ;
-	while (*s)
-		write(fd, s++, 1);
+	write(fd, s, ft_strlen(s));
 }
 
 // int	main(void)
+
 // {
-// 	ft_putstr_fd("abcdefg\n", 1);
-// 	ft_putstr_fd(NULL, 1);
-// 	ft_putstr_fd(NULL, -1);
-// 	ft_putstr_fd("A", 1);
-// 	ft_putstr_fd("", 2);
-// 	ft_putstr_fd("", 1);
-// 	ft_putstr_fd("Line1\nLine2\n", 1);
-// 	ft_putstr_fd("\tTabbed", 1);
+// 	char *s;
+// 	int fd;
+
+// 	s = "Hello";
+// 	fd = 1;
+
+// 	ft_putstr_fd(s, fd);
 // 	return (0);
 // }

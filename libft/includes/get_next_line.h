@@ -3,38 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 09:27:10 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/26 10:32:41 by keitabe          ###   ########.fr       */
+/*   Created: 2025/05/13 13:23:00 by takawagu          #+#    #+#             */
+/*   Updated: 2025/08/31 15:14:51 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdint.h>
+# include <fcntl.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-# if BUFFER_SIZE > 2000
-#  undef BUFFER_SIZE
-#  define BUFFER_SIZE 2000
-# endif
-
-# if BUFFER_SIZE < 0
-#  undef BUFFER_SIZE
-#  define BUFFER_SIZE 0
+#  define BUFFER_SIZE 1024
 # endif
 
 char	*get_next_line(int fd);
-char	*gnl_strjoin_free(char *stor, const char *buf);
-ssize_t	gnl_newline_index(const char *stor);
-char	*gnl_clip_line(char *stor);
-char	*gnl_get_remainder(char *store);
+size_t	ft_strlen(const char *s);
+char	*gnl_ft_strchr(const char *s, int c);
+char	*gnl_ft_strdup(const char *s);
+char	*gnl_ft_strjoin(char const *s1, char const *s2);
+void	*gnl_ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif

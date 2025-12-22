@@ -3,20 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 10:45:10 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/07 15:02:29 by keitabe          ###   ########.fr       */
+/*   Created: 2025/04/26 12:15:17 by takawagu          #+#    #+#             */
+/*   Updated: 2025/04/26 14:05:39 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 int	ft_isalnum(int c)
 {
-	if (ft_isdigit(c) || ft_isalpha(c))
+	if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z') || ('0' <= c
+			&& c <= '9'))
+	{
 		return (1);
-	return (0);
+	}
+	else
+	{
+		return (0);
+	}
 }
 
 // #include <stdio.h>
@@ -24,38 +28,11 @@ int	ft_isalnum(int c)
 // int	main(void)
 // {
 // 	int	c;
-// 	int	status;
+// 	int	x;
 
-// 	status = 0;
-// 	for (c = 'A'; c <= 'Z'; c++)
-// 	{
-// 		if (ft_isalnum(c) == ft_isalnum((unsigned char)c))
-// 			printf("%c:OK\n", c);
-// 		else
-// 		{
-// 			printf("%c:KO\n", c);
-// 			status = 1;
-// 		}
-// 	}
-// 	for (c = 'a'; c <= 'z'; c++)
-// 	{
-// 		if (ft_isalnum(c) == ft_isalnum((unsigned char)c))
-// 			printf("%c:OK\n", c);
-// 		else
-// 		{
-// 			printf("%c:KO\n", c);
-// 			status = 1;
-// 		}
-// 	}
-// 	for (c = '0'; c <= '9'; c++)
-// 	{
-// 		if (ft_isalnum(c) == ft_isalnum((unsigned char)c))
-// 			printf("%c:OK\n", c);
-// 		else
-// 		{
-// 			printf("%c:KO\n", c);
-// 			status = 1;
-// 		}
-// 	}
-// 	return (status);
+// 	c = 's';
+// 	x = ' ';
+// 	printf("結果：%d\n", ft_isalnum(c));
+// 	printf("結果：%d\n", ft_isalnum(x));
+// 	return (0);
 // }
