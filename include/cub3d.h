@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/22 17:31:14 by takawagu         ###   ########.fr       */
+/*   Updated: 2025/12/27 15:01:24 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <mlx.h>
 # include <stddef.h>
 # include <unistd.h>
+#include <stdlib.h>
+#include <X11/keysym.h>
 
 enum			e_tex
 {
@@ -123,6 +125,17 @@ int				parse_id_line(t_game *g, char *line, int *in_map);
 
 // read_map.c
 int				parse_file(t_game *g, const char *path);
+
+// gfx_init.c
+int		gfx_init(t_game *g);
+
+// draw_map.c
+void	draw_map(t_game *g);
+
+int	handle_key(int keycode, t_game *g);
+int	handle_close(t_game *g);
+
+
 
 #endif
 

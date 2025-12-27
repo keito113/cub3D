@@ -6,7 +6,7 @@
 #    By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/25 10:06:26 by takawagu          #+#    #+#              #
-#    Updated: 2025/09/02 14:26:49 by takawagu         ###   ########.fr        #
+#    Updated: 2025/12/27 15:09:55 by takawagu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,35 +82,26 @@ BONUS_SRCS = \
     ft_lstiter_bonus.c \
     ft_lstmap_bonus.c \
     ft_lstsize_bonus.c \
-    get_next_line/get_next_line_bonus.c \
-    get_next_line/get_next_line_utils_bonus.c
+
+SRCS += $(BONUS_SRCS)
+
 
 OBJS        = $(SRCS:.c=.o)
-BONUS_OBJS  = $(BONUS_SRCS:.c=.o)
 
-ifdef BONUS
-    ALL_OBJS = $(OBJS) $(BONUS_OBJS)
-else
-    ALL_OBJS = $(OBJS)
-endif
+
 
 
 all: $(NAME)
 
-$(NAME): $(ALL_OBJS)
-	$(AR) $(NAME) $(ALL_OBJS)
-
-
-bonus:
-	$(MAKE) BONUS=1
-
+$(NAME): $(OBJS)
+	$(AR) $(NAME) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCDIR) -c $< -o $@
 
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
