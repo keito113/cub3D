@@ -6,13 +6,13 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:24:26 by takawagu          #+#    #+#             */
-/*   Updated: 2025/12/27 14:59:34 by takawagu         ###   ########.fr       */
+/*   Updated: 2025/12/27 16:04:51 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"cub3d.h"
+#include "cub3d.h"
 
-static void	put_pixel(t_img *img, int x, int y, int color)
+void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
@@ -21,7 +21,6 @@ static void	put_pixel(t_img *img, int x, int y, int color)
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = (unsigned int)color;
 }
-
 
 static char	map_char_at(t_game *g, int x, int y)
 {

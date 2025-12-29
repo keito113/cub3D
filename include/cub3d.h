@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/27 15:01:24 by takawagu         ###   ########.fr       */
+/*   Updated: 2025/12/27 16:03:41 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 #include <stdlib.h>
 #include <X11/keysym.h>
+#include <math.h>
 
 enum			e_tex
 {
@@ -93,6 +94,27 @@ typedef struct s_gfx
 	int			win_h;			/* ウィンドウ高さ */
 }				t_gfx;
 
+typedef struct s_ray
+{
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_ray;
+
 /* ゲーム全体の状態 */
 typedef struct s_game
 {
@@ -101,8 +123,11 @@ typedef struct s_game
 	t_player	player;		/* プレイヤー状態 */
 	t_input		input;		/* 入力状態 */
 	t_gfx		gfx;		/* グラフィック状態 */
+	t_ray		ray;		/* レイキャスティング */
 	int			is_running;	/* ループ継続フラグ */
 }				t_game;
+
+
 
 // error.c
 int				fatal(t_game *g, t_errc code, const char *detail);
@@ -131,11 +156,13 @@ int		gfx_init(t_game *g);
 
 // draw_map.c
 void	draw_map(t_game *g);
+void	put_pixel(t_img *img, int x, int y, int color);
 
 int	handle_key(int keycode, t_game *g);
 int	handle_close(t_game *g);
+int	fill_player_config(t_game *g);
 
-
+void	raycast_frame(t_game *g);
 
 #endif
 
