@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:48:22 by takawagu          #+#    #+#             */
-/*   Updated: 2025/12/27 14:49:09 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/03 14:24:00 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	gfx_init(t_game *g)
 	g->gfx.mlx = mlx_init();
 	if (!g->gfx.mlx)
 		return (fatal(g, ERR_MLX, NULL));
-	g->gfx.win_w = g->map.width * 16;
-	g->gfx.win_h = g->map.height * 16;
+	g->gfx.win_w = g->map.width * 100;
+	g->gfx.win_h = g->map.height * 100;
 	g->gfx.win = mlx_new_window(g->gfx.mlx, g->gfx.win_w,
 			g->gfx.win_h, "cub3D");
 	if (!g->gfx.win)

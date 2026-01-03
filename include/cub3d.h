@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/27 16:03:41 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/03 14:43:30 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,17 @@ int	handle_close(t_game *g);
 int	fill_player_config(t_game *g);
 
 void	raycast_frame(t_game *g);
+int	load_textures(t_game *g);
+void	draw_column(t_game *g, int x);
+
+// hooks.c
+int	handle_key_press(int keycode, t_game *g);
+int	handle_key_release(int keycode, t_game *g);
+int	handle_close(t_game *g);
+
+// update.c (もしくは hooks.c に入れてもOK)
+int	game_update(t_game *g);
+
 
 #endif
 
