@@ -6,38 +6,11 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 15:38:05 by takawagu          #+#    #+#             */
-/*   Updated: 2025/12/27 16:02:50 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/03 14:37:34 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	draw_column(t_game *g, int x)
-{
-	int	y;
-	int	color;
-
-	y = 0;
-	while (y < g->ray.draw_start)
-	{
-		put_pixel(&g->gfx.screen, x, y, g->config.ceil_color);
-		y++;
-	}
-	if (g->ray.side == 0)
-		color = 0x555555;
-	else
-		color = 0x777777;
-	while (y <= g->ray.draw_end)
-	{
-		put_pixel(&g->gfx.screen, x, y, color);
-		y++;
-	}
-	while (y < g->gfx.win_h)
-	{
-		put_pixel(&g->gfx.screen, x, y, g->config.floor_color);
-		y++;
-	}
-}
 
 static void	setup_ray(t_game *g, int x)
 {

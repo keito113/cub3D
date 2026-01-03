@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:54:35 by takawagu          #+#    #+#             */
-/*   Updated: 2025/12/27 15:01:17 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/03 14:55:03 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,39 @@ int	handle_close(t_game *g)
 	return (0);
 }
 
-int	handle_key(int keycode, t_game *g)
+int	handle_key_press(int keycode, t_game *g)
 {
-	if (keycode == 65307) /* ESC */
+	if (keycode == XK_Escape)
 		return (handle_close(g));
+	if (keycode == XK_w)
+		g->input.key_w = 1;
+	else if (keycode == XK_s)
+		g->input.key_s = 1;
+	else if (keycode == XK_a)
+		g->input.key_a = 1;
+	else if (keycode == XK_d)
+		g->input.key_d = 1;
+	else if (keycode == XK_Left)
+		g->input.key_left = 1;
+	else if (keycode == XK_Right)
+		g->input.key_right = 1;
+    printf("keycode: %d\n", keycode);
+	return (0);
+}
+
+int	handle_key_release(int keycode, t_game *g)
+{
+	if (keycode == XK_w)
+		g->input.key_w = 0;
+	else if (keycode == XK_s)
+		g->input.key_s = 0;
+	else if (keycode == XK_a)
+		g->input.key_a = 0;
+	else if (keycode == XK_d)
+		g->input.key_d = 0;
+	else if (keycode == XK_Left)
+		g->input.key_left = 0;
+	else if (keycode == XK_Right)
+		g->input.key_right = 0;
 	return (0);
 }
