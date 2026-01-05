@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:48:22 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/03 14:24:00 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/05 09:30:02 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ int	gfx_init(t_game *g)
 	g->gfx.screen.h = g->gfx.win_h;
 	return (0);
 }
+
 
