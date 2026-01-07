@@ -11,8 +11,17 @@ LIBFT_LIB := $(LIBFT_DIR)/libft.a
 
 CFLAGS := -Wall -Wextra -Werror -Iinclude -Ilibft/includes $(MLX_INC)
 
-SRCS     := $(wildcard src/*.c)
-OBJS     := $(SRCS:.c=.o)
+OBJ_DIR := obj
+
+SRCS := $(shell find src -name '*.c')
+OBJS := $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
+
+$(NAME): $(OBJS) $(LIBFT_LIB)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_LIB) -o $(NAME)
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
@@ -27,6 +36,7 @@ $(LIBFT_LIB):
 
 clean:
 	$(RM) $(OBJS)
+	$(RM) -r $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean

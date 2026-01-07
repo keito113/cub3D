@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:46:17 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/03 16:03:46 by keitabe          ###   ########.fr       */
+/*   Updated: 2026/01/05 10:27:29 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int	game_init(t_game *g, const char *path)
 	g->gfx.screen.bpp = 0;
 	g->gfx.screen.line_len = 0;
 	g->gfx.screen.endian = 0;
-	g->gfx.screen.w = 0;
-	g->gfx.screen.h = 0;
+	g->gfx.screen.img_width = 0;
+	g->gfx.screen.img_height = 0;
 	g->gfx.tex[TEX_NO].ptr = NULL;
 	g->gfx.tex[TEX_SO].ptr = NULL;
 	g->gfx.tex[TEX_WE].ptr = NULL;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   args_validate.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 13:02:33 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/03 14:45:19 by keitabe          ###   ########.fr       */
+/*   Updated: 2026/01/05 09:52:21 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	has_cub_ext(const char *path)
+static int	is_cub_file(const char *path)
 {
 	size_t	len;
 
@@ -24,17 +24,17 @@ static int	has_cub_ext(const char *path)
 	return (1);
 }
 
-int	args_validate(t_game *g, int ac, char **av)
+int	args_validate(t_game *game, int argc, char **argv)
 {
 	int	fd;
 
-	if (ac != 2)
-		return (fatal(g, ERR_USAGE, NULL));
-	if (!has_cub_ext(av[1]))
-		return (fatal(g, ERR_EXT, av[1]));
-	fd = open(av[1], O_RDONLY);
+	if (argc != 2)
+		return (fatal(game, ERR_USAGE, NULL));
+	if (!is_cub_file(argv[1]))
+		return (fatal(game, ERR_EXT, argv[1]));
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		return (fatal(g, ERR_OPEN, av[1]));
+		return (fatal(game, ERR_OPEN, argv[1]));
 	close(fd);
 	return (0);
 }
