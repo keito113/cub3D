@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/03 14:43:30 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:53:47 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_img
 	int			bpp;			/* 1ピクセルあたりのビット数 */
 	int			line_len;		/* 1行のバイト数 */
 	int			endian;			/* エンディアン指定 */
-	int			w;				/* 画像の幅 */
-	int			h;				/* 画像の高さ */
+	int			img_width;				/* 画像の幅 */
+	int			img_height;				/* 画像の高さ */
 }				t_img;
 
 /* .cub設定（パスと色） */
@@ -97,8 +97,8 @@ typedef struct s_gfx
 typedef struct s_ray
 {
 	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
+	double	dir_x;
+	double	dir_y;
 	int		map_x;
 	int		map_y;
 	double	side_dist_x;
@@ -114,6 +114,17 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 }	t_ray;
+
+typedef struct s_wall_slice
+{
+	int		screen_x;
+	int		screen_y;
+	int		tex_x;
+	double	tex_y_pos;
+	double	tex_step;
+	double	wall_x;
+	t_img	*tex;
+}	t_wall_slice;
 
 /* ゲーム全体の状態 */
 typedef struct s_game
@@ -133,10 +144,10 @@ typedef struct s_game
 int				fatal(t_game *g, t_errc code, const char *detail);
 
 // args_validate.c
-int				args_validate(t_game *g, int ac, char **av);
+int	args_validate(t_game *game, int argc, char **argv);
 
 // cleanup.c
-void			game_destroy(t_game *g);
+void			game_destroy(t_game *game);
 
 // game_init.c
 int				game_init(t_game *g, const char *path);
@@ -155,16 +166,18 @@ int				parse_file(t_game *g, const char *path);
 int		gfx_init(t_game *g);
 
 // draw_map.c
-void	draw_map(t_game *g);
+void	draw_map(t_game *game);
 void	put_pixel(t_img *img, int x, int y, int color);
+void	draw_wall(t_game *game, t_wall_slice *slice);
 
-int	handle_key(int keycode, t_game *g);
-int	handle_close(t_game *g);
-int	fill_player_config(t_game *g);
+int	handle_key(int keycode, t_game *game);
+int	handle_close(t_game *game);
+int	fill_player_config(t_game *game);
 
-void	raycast_frame(t_game *g);
+void	raycast_frame(t_game *game);
 int	load_textures(t_game *g);
-void	draw_column(t_game *g, int x);
+void	draw_column(t_game *game, t_wall_slice *slice);
+void	setup_wall_slice(t_game *game, t_wall_slice *slice);
 
 // hooks.c
 int	handle_key_press(int keycode, t_game *g);
@@ -173,6 +186,9 @@ int	handle_close(t_game *g);
 
 // update.c (もしくは hooks.c に入れてもOK)
 int	game_update(t_game *g);
+
+int	game_prepare(t_game *game,char **argv);
+void	game_run(t_game *game);
 
 
 #endif

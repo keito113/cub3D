@@ -6,11 +6,10 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 14:29:42 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/03 14:30:17 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/05 10:31:07 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// 例: src/texture.c
 #include "cub3d.h"
 
 static int	load_one_tex(t_game *g, int idx)
@@ -20,7 +19,8 @@ static int	load_one_tex(t_game *g, int idx)
 
 	tex = &g->gfx.tex[idx];
 	path = g->config.tex_path[idx];
-	tex->ptr = mlx_xpm_file_to_image(g->gfx.mlx, path, &tex->w, &tex->h);
+	tex->ptr = mlx_xpm_file_to_image(g->gfx.mlx, path,
+			&tex->img_width, &tex->img_height);
 	if (!tex->ptr)
 		return (fatal(g, ERR_IMG, path));
 	tex->addr = mlx_get_data_addr(tex->ptr, &tex->bpp, &tex->line_len,
@@ -43,4 +43,3 @@ int	load_textures(t_game *g)
 	}
 	return (0);
 }
-

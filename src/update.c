@@ -6,31 +6,31 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 14:44:12 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/03 14:45:04 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:49:09 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_wall(t_game *g, double x, double y)
+static int	is_wall(t_game *game, double x, double y)
 {
-	return (g->map.grid[(int)y][(int)x] == '1');
+	return (game->map.grid[(int)y][(int)x] == '1');
 }
 
-static void	move_player(t_game *g, double dx, double dy)
+static void	move_player(t_game *game, double dx, double dy)
 {
 	double	nx;
 	double	ny;
 
-	nx = g->player.x + dx;
-	ny = g->player.y + dy;
-	if (!is_wall(g, nx, g->player.y))
-		g->player.x = nx;
-	if (!is_wall(g, g->player.x, ny))
-		g->player.y = ny;
+	nx = game->player.x + dx;
+	ny = game->player.y + dy;
+	if (!is_wall(game, nx, game->player.y))
+		game->player.x = nx;
+	if (!is_wall(game, game->player.x, ny))
+		game->player.y = ny;
 }
 
-static void	rotate_player(t_game *g, double rot)
+static void	rotate_player(t_game *game, double rot)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -39,12 +39,12 @@ static void	rotate_player(t_game *g, double rot)
 
 	c = cos(rot);
 	s = sin(rot);
-	old_dir_x = g->player.dir_x;
-	g->player.dir_x = g->player.dir_x * c - g->player.dir_y * s;
-	g->player.dir_y = old_dir_x * s + g->player.dir_y * c;
-	old_plane_x = g->player.plane_x;
-	g->player.plane_x = g->player.plane_x * c - g->player.plane_y * s;
-	g->player.plane_y = old_plane_x * s + g->player.plane_y * c;
+	old_dir_x = game->player.dir_x;
+	game->player.dir_x = game->player.dir_x * c - game->player.dir_y * s;
+	game->player.dir_y = old_dir_x * s + game->player.dir_y * c;
+	old_plane_x = game->player.plane_x;
+	game->player.plane_x = game->player.plane_x * c - game->player.plane_y * s;
+	game->player.plane_y = old_plane_x * s + game->player.plane_y * c;
 }
 
 int	game_update(t_game *g)

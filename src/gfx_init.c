@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:48:22 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/05 09:30:02 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/05 18:57:51 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ int	gfx_init(t_game *g)
 	g->gfx.screen.addr = mlx_get_data_addr(g->gfx.screen.ptr,
 			&g->gfx.screen.bpp, &g->gfx.screen.line_len,
 			&g->gfx.screen.endian);
-	g->gfx.screen.w = g->gfx.win_w;
-	g->gfx.screen.h = g->gfx.win_h;
+	g->gfx.screen.img_width = g->gfx.win_w;
+	g->gfx.screen.img_height = g->gfx.win_h;
 	return (0);
 }
+
 
 

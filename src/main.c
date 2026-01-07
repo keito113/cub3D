@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:51:27 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/05 09:30:03 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/05 09:45:18 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,11 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
-	if (args_validate(&game, argc, argv))
+	if(args_validate(&game,argc,argv))
+		return(1);
+	if (game_prepare(&game,argv))
 		return (1);
-	if (game_init(&game, argv[1]) != 0)
-		return (1);
-	if (parse_file(&game, argv[1]) != 0)
-		return (1);
-	if (gfx_init(&game) != 0)
-		return (1);
-	if (load_textures(&game) != 0)
-		return (1);
-	fill_player_config(&game);
-	/* 2Dではなく3D描画 */
-	raycast_frame(&game);
-	mlx_put_image_to_window(game.gfx.mlx, game.gfx.win,
-		game.gfx.screen.ptr, 0, 0);
-
-	mlx_hook(game.gfx.win, 2, 1L << 0, handle_key_press, &game);
-	mlx_hook(game.gfx.win, 3, 1L << 1, handle_key_release, &game);
-	mlx_hook(game.gfx.win, 17, 0, handle_close, &game);
-	mlx_loop_hook(game.gfx.mlx, game_update, &game);
-	mlx_loop(game.gfx.mlx);
-
+	game_run(&game);
 	game_destroy(&game);
 	return (0);
 }
