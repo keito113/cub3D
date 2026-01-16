@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 13:17:12 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/03 14:23:19 by keitabe          ###   ########.fr       */
+/*   Updated: 2026/01/16 18:25:10 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static const char	*msg_of(t_errc c)
 	return ("Fatal error");
 }
 
-int	fatal(t_game *g, t_errc code, const char *detail)
+int	fatal(t_game *game, t_errc code, const char *detail)
 {
 	const char	*msg;
 
@@ -46,6 +46,6 @@ int	fatal(t_game *g, t_errc code, const char *detail)
 		write(2, detail, ft_strlen(detail));
 	}
 	write(2, "\n", 1);
-	game_destroy(g);
+	game_destroy(game);
 	return (1);
 }

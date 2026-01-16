@@ -6,11 +6,11 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:15:03 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/07 15:23:07 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:44:17 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"cub3d.h"
+#include "cub3d.h"
 
 static void	setup_tex(t_game *game, t_wall_slice *slice);
 static void	setup_tex_x(t_game *game, t_wall_slice *slice);
@@ -23,7 +23,6 @@ void	setup_wall_slice(t_game *game, t_wall_slice *slice)
 	setup_tex_x(game, slice);
 	setup_tex_step(game, slice);
 }
-
 
 static void	setup_tex(t_game *game, t_wall_slice *slice)
 {
@@ -55,7 +54,6 @@ static void	setup_tex_step(t_game *game, t_wall_slice *slice)
 	slice->tex_y_pos = (game->ray.draw_start - game->gfx.win_h / 2
 			+ game->ray.line_height / 2) * slice->tex_step;
 }
-
 
 static int	select_tex(t_game *game)
 {

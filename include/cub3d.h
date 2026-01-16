@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/07 15:53:47 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 19:03:52 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,9 @@ int	args_validate(t_game *game, int argc, char **argv);
 // cleanup.c
 void			game_destroy(t_game *game);
 
-// game_init.c
+// game_init
 int				game_init(t_game *g, const char *path);
+void			init_gfx(t_gfx *gfx);
 
 // map_parse_utils.c
 int				parse_color(int *out, char *s);
@@ -162,8 +163,8 @@ int				parse_id_line(t_game *g, char *line, int *in_map);
 // read_map.c
 int				parse_file(t_game *g, const char *path);
 
-// gfx_init.c
-int		gfx_init(t_game *g);
+// fill_gfx.c
+int	fill_gfx(t_game *game);
 
 // draw_map.c
 void	draw_map(t_game *game);
@@ -189,6 +190,8 @@ int	game_update(t_game *g);
 
 int	game_prepare(t_game *game,char **argv);
 void	game_run(t_game *game);
+
+void	set_player_dir(t_player *player, char c);
 
 
 #endif

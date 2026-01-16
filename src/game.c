@@ -6,19 +6,19 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 09:38:28 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/07 16:02:16 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:57:28 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	game_prepare(t_game *game,char **argv)
+int	game_prepare(t_game *game, char **argv)
 {
 	if (game_init(game, argv[1]) != 0)
 		return (1);
 	if (parse_file(game, argv[1]) != 0)
 		return (1);
-	if (gfx_init(game) != 0)
+	if (fill_gfx(game) != 0)
 		return (1);
 	if (load_textures(game) != 0)
 		return (1);
@@ -26,6 +26,7 @@ int	game_prepare(t_game *game,char **argv)
 		return (1);
 	return (0);
 }
+
 void	game_run(t_game *game)
 {
 	raycast_frame(game);

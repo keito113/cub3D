@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 15:38:05 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/07 15:38:34 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:36:30 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void	calc_wall(t_game *g)
 
 void	raycast_frame(t_game *game)
 {
-	int			x;
+	int				x;
 	t_wall_slice	slice;
 
 	x = 0;

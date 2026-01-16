@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:54:35 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/07 15:50:42 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 19:11:22 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	handle_key_press(int keycode, t_game *game)
 		game->input.key_left = 1;
 	else if (keycode == XK_Right)
 		game->input.key_right = 1;
-    printf("keycode: %d\n", keycode);
+	printf("keycode: %d\n", keycode);
 	return (0);
 }
 

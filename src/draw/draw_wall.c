@@ -6,11 +6,11 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:07:12 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/07 15:31:52 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:43:29 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"cub3d.h"
+#include "cub3d.h"
 
 static void	draw_wall_slice(t_game *game, t_wall_slice *slice);
 static int	get_tex_pixel(t_img *tex, int x, int y);
