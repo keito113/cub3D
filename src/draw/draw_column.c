@@ -6,11 +6,11 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 14:32:59 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/07 15:23:45 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/16 18:43:19 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"cub3d.h"
+#include "cub3d.h"
 
 static void	draw_ceiling(t_game *game, int x, int end_y)
 {
