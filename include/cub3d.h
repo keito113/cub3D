@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/16 19:03:52 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:16:57 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,21 @@ typedef struct s_img
 	int			img_height;				/* 画像の高さ */
 }				t_img;
 
+/* parse用のフラグ */
+typedef struct s_parsed_flags
+{
+	int		tex[TEX_MAX];
+	int		floor;
+	int		ceil;
+}	t_parsed_flags;
+
 /* .cub設定（パスと色） */
 typedef struct s_config
 {
 	char		*tex_path[TEX_MAX];	/* テクスチャパス配列: NO, SO, WE, EA */
 	int			floor_color;		/* 床色 (0xRRGGBB) */
 	int			ceil_color;			/* 天井色 (0xRRGGBB) */
-	int			parsed_mask;		/* 取得済みフラグ用ビットマスク */
+	t_parsed_flags	parsed;
 }				t_config;
 
 /* マップ情報 */
@@ -144,7 +152,7 @@ typedef struct s_game
 int				fatal(t_game *g, t_errc code, const char *detail);
 
 // args_validate.c
-int	args_validate(t_game *game, int argc, char **argv);
+int				args_validate(t_game *game, int argc, char **argv);
 
 // cleanup.c
 void			game_destroy(t_game *game);
@@ -155,16 +163,16 @@ void			init_gfx(t_gfx *gfx);
 
 // map_parse_utils.c
 int				parse_color(int *out, char *s);
-char			*skip_ws(char *s);
+char			*skip_space(char *str);
 
 // map_parse.c
-int				parse_id_line(t_game *g, char *line, int *in_map);
+int				parse_config_line(t_game *game, char *line, int *in_map);
 
 // read_map.c
-int				parse_file(t_game *g, const char *path);
+int				parse_file(t_game *game, const char *path);
 
 // fill_gfx.c
-int	fill_gfx(t_game *game);
+int				fill_gfx(t_game *game);
 
 // draw_map.c
 void	draw_map(t_game *game);
@@ -186,13 +194,14 @@ int	handle_key_release(int keycode, t_game *g);
 int	handle_close(t_game *g);
 
 // update.c (もしくは hooks.c に入れてもOK)
-int	game_update(t_game *g);
+int		game_update(t_game *g);
 
-int	game_prepare(t_game *game,char **argv);
+int		game_prepare(t_game *game,char **argv);
 void	game_run(t_game *game);
 
 void	set_player_dir(t_player *player, char c);
 
+int	finalize_map(t_game *game, t_list *lst);
 
 #endif
 

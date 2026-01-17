@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:54:35 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/16 19:11:22 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:31:26 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	handle_close(t_game *game)
 {
 	game_destroy(game);
 	exit(0);
-	return (0);
 }
 
 int	handle_key_press(int keycode, t_game *game)

@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     curl ca-certificates \
     xorg x11-apps \
     libx11-dev libxext-dev zlib1g-dev libbsd-dev \
+    valgrind \
     && rm -rf /var/lib/apt/lists/*
 
 

@@ -3,103 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:55:59 by keitabe           #+#    #+#             */
-/*   Updated: 2025/12/08 14:47:30 by keitabe          ###   ########.fr       */
+/*   Updated: 2026/01/17 18:21:02 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	parse_tex(t_config *cfg, int idx, char *rest)
+static int	parse_tex(t_config *config, int i, char *rest)
 {
 	char	*path;
 
-	if (cfg->parsed_mask & (1 << idx))
+	if (config->parsed.tex[i])
 		return (1);
-	rest = skip_ws(rest);
+	rest = skip_space(rest);
 	if (*rest == '\0')
 		return (1);
 	path = ft_strdup(rest);
 	if (!path)
 		return (1);
-	cfg->tex_path[idx] = path;
-	cfg->parsed_mask |= (1 << idx);
+	config->tex_path[i] = path;
+	config->parsed.tex[i] = 1;
 	return (0);
 }
 
-static int	tex_wrap(t_config *cfg, int idx, char *rest)
+static int	tex_wrap(t_config *config, int idx, char *rest)
 {
 	int	err;
 
-	err = parse_tex(cfg, idx, rest);
+	err = parse_tex(config, idx, rest);
 	if (err != 0)
 		return (-1);
 	return (0);
 }
 
-static int	handle_texture(char *id, int id_len, t_game *g, char *rest)
+static int	handle_texture(char *key, int key_len, t_game *game, char *rest)
 {
-	if (id_len != 2)
+	if (key_len != 2)
 		return (1);
-	if (ft_strncmp(id, "NO", 2) == 0)
-		return (tex_wrap(&g->config, TEX_NO, rest));
-	if (ft_strncmp(id, "SO", 2) == 0)
-		return (tex_wrap(&g->config, TEX_SO, rest));
-	if (ft_strncmp(id, "WE", 2) == 0)
-		return (tex_wrap(&g->config, TEX_WE, rest));
-	if (ft_strncmp(id, "EA", 2) == 0)
-		return (tex_wrap(&g->config, TEX_EA, rest));
+	if (ft_strncmp(key, "NO", 2) == 0)
+		return (tex_wrap(&game->config, TEX_NO, rest));
+	if (ft_strncmp(key, "SO", 2) == 0)
+		return (tex_wrap(&game->config, TEX_SO, rest));
+	if (ft_strncmp(key, "WE", 2) == 0)
+		return (tex_wrap(&game->config, TEX_WE, rest));
+	if (ft_strncmp(key, "EA", 2) == 0)
+		return (tex_wrap(&game->config, TEX_EA, rest));
 	return (1);
 }
 
-static int	parse_fc(t_game *g, int id_len, char id, char *rest)
+static int	parse_fc(t_game *game, int key_len, char key, char *rest)
 {
-	if (id_len != 1)
+	if (key_len != 1)
 		return (1);
-	if (id == 'F')
+	if (key == 'F')
 	{
-		if (g->config.parsed_mask & (1 << 4))
+		if (game->config.parsed.floor)
 			return (1);
-		if (parse_color(&g->config.floor_color, rest))
+		if (parse_color(&game->config.floor_color, rest))
 			return (1);
-		g->config.parsed_mask |= (1 << 4);
+		game->config.parsed.floor = 1;
 		return (0);
 	}
-	if (id == 'C')
+	if (key == 'C')
 	{
-		if (g->config.parsed_mask & (1 << 5))
+		if (game->config.parsed.ceil)
 			return (1);
-		if (parse_color(&g->config.ceil_color, rest))
+		if (parse_color(&game->config.ceil_color, rest))
 			return (1);
-		g->config.parsed_mask |= (1 << 5);
+		game->config.parsed.ceil = 1;
 		return (0);
 	}
 	return (1);
 }
 
-int	parse_id_line(t_game *g, char *line, int *in_map)
+int	parse_config_line(t_game *game, char *line, int *in_map)
 {
-	char	*id;
+	char	*key;
 	char	*rest;
-	int		id_len;
+	int		key_len;
 	int		res;
 
-	line = skip_ws(line);
+	line = skip_space(line);
 	if (*line == '\0')
 		return (0);
-	id = line;
+	key = line;
 	while (*line && *line != ' ' && *line != '\t')
 		line++;
-	id_len = line - id;
-	rest = skip_ws(line);
-	res = handle_texture(id, id_len, g, rest);
+	key_len = line - key;
+	rest = skip_space(line);
+	res = handle_texture(key, key_len, game, rest);
 	if (res < 0)
 		return (1);
 	if (res == 0)
 		return (0);
-	if (parse_fc(g, id_len, *id, rest) == 0)
+	if (parse_fc(game, key_len, *key, rest) == 0)
 		return (0);
 	*in_map = 1;
 	return (0);

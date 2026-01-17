@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:51:22 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/07 16:17:27 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:44:11 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	parse_color(int *out, char *s)
 	return (0);
 }
 
-char	*skip_ws(char *s)
+char	*skip_space(char *str)
 {
-	while (*s == ' ' || *s == '\t')
-		s++;
-	return (s);
+	while (*str == ' ' || *str == '\t')
+		str++;
+	return (str);
 }
