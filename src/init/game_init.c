@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:46:17 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/16 19:00:03 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/17 18:18:36 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ static void	config_init(t_config *config)
 	while (i < TEX_MAX)
 	{
 		config->tex_path[i] = NULL;
+		config->parsed.tex[i] = 0;
 		i++;
 	}
 	config->floor_color = -1;
 	config->ceil_color = -1;
-	config->parsed_mask = 0;
+	config->parsed.floor = 0;
+	config->parsed.ceil = 0;
 }
 
 static void	map_init(t_map *map)
