@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/17 18:16:57 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/19 16:13:33 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "error.h"
 # include "libft.h"
 # include <fcntl.h>
-# include <mlx.h>
+# include "mlx.h"
 # include <stddef.h>
 # include <unistd.h>
-#include <stdlib.h>
-#include <X11/keysym.h>
-#include <math.h>
+# include <stdlib.h>
+# include <X11/keysym.h>
+# include <math.h>
 
 enum			e_tex
 {
