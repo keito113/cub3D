@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/19 16:13:33 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/21 11:57:42 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,34 +104,34 @@ typedef struct s_gfx
 
 typedef struct s_ray
 {
-	double	camera_x;
-	double	dir_x;
-	double	dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
+	double	camera_x;		/* カメラ空間の正規化x座標 */
+	double	dir_x;			/* レイ方向ベクトルx成分 */
+	double	dir_y;			/* レイ方向ベクトルy成分 */
+	int		map_x;			/* 現在いるマップセルx */
+	int		map_y;			/* 現在いるマップセルy */
+	double	side_dist_x;	/* 次のx面までの距離 */
+	double	side_dist_y;	/* 次のy面までの距離 */
+	double	delta_dist_x;	/* x面間の距離 */
+	double	delta_dist_y;	/* y面間の距離 */
+	double	perp_wall_dist;	/* 壁までの垂直距離 */
+	int		step_x;			/* x方向の進行方向(-1 or 1) */
+	int		step_y;			/* y方向の進行方向(-1 or 1) */
+	int		hit;			/* 壁ヒットフラグ */
+	int		side;			/* ヒットした壁面(0:x面, 1:y面) */
+	int		line_height;	/* スクリーン上の壁高さ */
+	int		draw_start;		/* 壁スライス描画開始y */
+	int		draw_end;		/* 壁スライス描画終了y */
 }	t_ray;
 
 typedef struct s_wall_slice
 {
-	int		screen_x;
-	int		screen_y;
-	int		tex_x;
-	double	tex_y_pos;
-	double	tex_step;
-	double	wall_x;
-	t_img	*tex;
+	int		screen_x;		/* スクリーンx座標 */
+	int		screen_y;		/* スクリーンy座標 */
+	int		tex_x;			/* テクスチャx座標 */
+	double	tex_y_pos;		/* テクスチャyの開始位置 */
+	double	tex_step;		/* 1ピクセルごとのテクスチャy増分 */
+	double	wall_hit;		/* 壁ヒット位置(0.0-1.0) */
+	t_img	*tex;			/* 使用する壁テクスチャ */
 }	t_wall_slice;
 
 /* ゲーム全体の状態 */
@@ -204,4 +204,3 @@ void	set_player_dir(t_player *player, char c);
 int	finalize_map(t_game *game, t_list *lst);
 
 #endif
-
