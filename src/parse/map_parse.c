@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 14:55:59 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/17 18:21:02 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/21 12:47:55 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ static int	parse_fc(t_game *game, int key_len, char key, char *rest)
 	if (key == 'F')
 	{
 		if (game->config.parsed.floor)
-			return (1);
+			return (-1);
 		if (parse_color(&game->config.floor_color, rest))
-			return (1);
+			return (-1);
 		game->config.parsed.floor = 1;
 		return (0);
 	}
 	if (key == 'C')
 	{
 		if (game->config.parsed.ceil)
-			return (1);
+			return (-1);
 		if (parse_color(&game->config.ceil_color, rest))
-			return (1);
+			return (-1);
 		game->config.parsed.ceil = 1;
 		return (0);
 	}
@@ -99,7 +99,10 @@ int	parse_config_line(t_game *game, char *line, int *in_map)
 		return (1);
 	if (res == 0)
 		return (0);
-	if (parse_fc(game, key_len, *key, rest) == 0)
+	res = parse_fc(game,key_len,*key,rest);
+	if (res < 0)
+		return (1);
+	if (res == 0)
 		return (0);
 	*in_map = 1;
 	return (0);
