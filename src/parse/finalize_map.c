@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/17 17:15:44 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/17 18:42:41 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/22 13:42:06 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ int	finalize_map(t_game *game, t_list *lst)
 	int		width;
 	char	**grid;
 
+	if (!game->config.parsed.floor)
+		return (fatal(game, ERR_PARSE, "Missing floor color"));
+	if (!game->config.parsed.ceil)
+		return (fatal(game, ERR_PARSE, "Missing ceiling color"));
 	height = ft_lstsize(lst);
 	if (height == 0)
 		return (fatal(game, ERR_MAP, "Map missing"));
