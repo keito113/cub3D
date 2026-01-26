@@ -6,25 +6,25 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 13:51:22 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/17 17:44:11 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:56:14 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	free_split(char **v)
+static void	free_split(char **vec)
 {
 	int	i;
 
-	if (!v)
+	if (!vec)
 		return ;
 	i = 0;
-	while (v[i])
+	while (vec[i])
 	{
-		free(v[i]);
+		free(vec[i]);
 		i++;
 	}
-	free(v);
+	free(vec);
 }
 
 static int	parse_chan(const char *s, int *out)
@@ -49,23 +49,23 @@ static int	parse_chan(const char *s, int *out)
 
 int	parse_color(int *out, char *s)
 {
-	char	**v;
+	char	**vec;
 	int		r;
 	int		g;
 	int		b;
 
-	v = ft_split(s, ',');
-	if (!v || !v[0] || !v[1] || !v[2] || v[3])
+	vec = ft_split(s, ',');
+	if (!vec || !vec[0] || !vec[1] || !vec[2] || vec[3])
 	{
-		free_split(v);
+		free_split(vec);
 		return (1);
 	}
-	if (parse_chan(v[0], &r) || parse_chan(v[1], &g) || parse_chan(v[2], &b))
+	if (parse_chan(vec[0], &r) || parse_chan(vec[1], &g) || parse_chan(vec[2], &b))
 	{
-		free_split(v);
+		free_split(vec);
 		return (1);
 	}
-	free_split(v);
+	free_split(vec);
 	*out = (r << 16) | (g << 8) | b;
 	return (0);
 }
