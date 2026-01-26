@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 09:38:28 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/16 18:57:28 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:48:26 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	game_prepare(t_game *game, char **argv)
 {
 	if (game_init(game, argv[1]) != 0)
 		return (1);
-	if (parse_file(game, argv[1]) != 0)
+	if (read_map(game, argv[1]) != 0)
 		return (1);
 	if (fill_gfx(game) != 0)
 		return (1);
@@ -24,6 +24,15 @@ int	game_prepare(t_game *game, char **argv)
 		return (1);
 	if (fill_player_config(game) != 0)
 		return (1);
+	return (0);
+}
+
+int	game_update(t_game *game)
+{
+	handle_movement(game);
+	raycast_frame(game);
+	mlx_put_image_to_window(game->gfx.mlx, game->gfx.win,
+		game->gfx.screen.ptr, 0, 0);
 	return (0);
 }
 
