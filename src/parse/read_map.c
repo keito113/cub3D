@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:48:36 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/17 17:55:24 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:27:27 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	free_list_nodes(t_list **lst)
 	}
 }
 
-int	parse_file(t_game *game, const char *path)
+int	read_map(t_game *game, const char *path)
 {
 	int		fd;
 	char	*line;

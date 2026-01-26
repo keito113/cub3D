@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/21 11:57:42 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/26 19:59:29 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <stdlib.h>
 # include <X11/keysym.h>
 # include <math.h>
+
+# define MOVE_SPEED 0.1
+# define ROT_SPEED  0.1
 
 enum			e_tex
 {
@@ -146,8 +149,6 @@ typedef struct s_game
 	int			is_running;	/* ループ継続フラグ */
 }				t_game;
 
-
-
 // error.c
 int				fatal(t_game *g, t_errc code, const char *detail);
 
@@ -161,46 +162,56 @@ void			game_destroy(t_game *game);
 int				game_init(t_game *g, const char *path);
 void			init_gfx(t_gfx *gfx);
 
-// map_parse_utils.c
-int				parse_color(int *out, char *s);
+//parse_utils.c
+void			free_split(char **vec);
 char			*skip_space(char *str);
 
 // map_parse.c
 int				parse_config_line(t_game *game, char *line, int *in_map);
 
 // read_map.c
-int				parse_file(t_game *game, const char *path);
+int				read_map(t_game *game, const char *path);
 
 // fill_gfx.c
 int				fill_gfx(t_game *game);
 
 // draw_map.c
-void	draw_map(t_game *game);
-void	put_pixel(t_img *img, int x, int y, int color);
-void	draw_wall(t_game *game, t_wall_slice *slice);
+void			draw_map(t_game *game);
+void			put_pixel(t_img *img, int x, int y, int color);
+void			draw_wall(t_game *game, t_wall_slice *slice);
 
-int	handle_key(int keycode, t_game *game);
-int	handle_close(t_game *game);
-int	fill_player_config(t_game *game);
+int				handle_key(int keycode, t_game *game);
+int				handle_close(t_game *game);
+int				fill_player_config(t_game *game);
 
-void	raycast_frame(t_game *game);
-int	load_textures(t_game *g);
-void	draw_column(t_game *game, t_wall_slice *slice);
-void	setup_wall_slice(t_game *game, t_wall_slice *slice);
+void			raycast_frame(t_game *game);
+int				load_textures(t_game *game);
+void			draw_column(t_game *game, t_wall_slice *slice);
+void			setup_wall_slice(t_game *game, t_wall_slice *slice);
 
 // hooks.c
-int	handle_key_press(int keycode, t_game *g);
-int	handle_key_release(int keycode, t_game *g);
-int	handle_close(t_game *g);
+int				handle_key_press(int keycode, t_game *g);
+int				handle_key_release(int keycode, t_game *g);
+int				handle_close(t_game *g);
 
 // update.c (もしくは hooks.c に入れてもOK)
-int		game_update(t_game *g);
+int				game_update(t_game *game);
 
-int		game_prepare(t_game *game,char **argv);
-void	game_run(t_game *game);
+int				game_prepare(t_game *game,char **argv);
+void			game_run(t_game *game);
 
-void	set_player_dir(t_player *player, char c);
+void			set_player_dir(t_player *player, char c);
+void 			handle_movement(t_game *game);
+void			move_player(t_game *game, double dx, double dy);
+void			rotate_player(t_game *game, double rot);
 
-int	finalize_map(t_game *game, t_list *lst);
+
+int				finalize_map(t_game *game, t_list *lst);
+
+int				check_map_enclosed(t_game *game);
+
+int				parse_floor_and_ceil(t_game *game, int key_len, char key, char *rest);
+
+int				handle_texture(char *key, int key_len, t_game *game, char *rest);
 
 #endif
