@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:15:03 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/21 12:01:28 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:58:46 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void	setup_tex_x(t_game *game, t_wall_slice *slice)
 
 static void	setup_tex_step(t_game *game, t_wall_slice *slice)
 {
-	slice->tex_step = 1.0 * slice->tex->img_height / game->ray.line_height;
+	slice->tex_step = 1.0 * slice->tex->img_height / game->ray.wall_height;
 	slice->tex_y_pos = (game->ray.draw_start - game->gfx.win_h / 2
-			+ game->ray.line_height / 2) * slice->tex_step;
+			+ game->ray.wall_height / 2) * slice->tex_step;
 }
 
 static int	select_tex(t_game *game)

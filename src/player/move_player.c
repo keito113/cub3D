@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 19:45:38 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/26 19:46:32 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:18:02 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,15 @@ void	move_player(t_game *game, double dx, double dy)
 
 static int	is_wall(t_game *game, double x, double y)
 {
-	return (game->map.grid[(int)y][(int)x] == '1');
+	int		grid_x;
+	int		grid_y;
+	char	c;
+
+	grid_x = (int)x;
+	grid_y = (int)y;
+	if (grid_y < 0 || grid_y >= game->map.height || grid_x < 0
+		|| grid_x >= game->map.width)
+		return (1);
+	c = game->map.grid[grid_y][grid_x];
+	return (c == '1' || c == ' ');
 }
