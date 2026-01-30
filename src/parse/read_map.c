@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:48:36 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/26 19:27:27 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/01/30 18:13:30 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ static int	handle_line(t_game *game, char *line, int *in_map, t_list **map)
 
 static int	cleanup_err(int fd, t_list **map)
 {
+	char	*line;
+
+	while ((line = get_next_line(fd)) != NULL)
+		free(line);
 	close(fd);
 	ft_lstclear(map, free);
 	return (1);
