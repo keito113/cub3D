@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:48:36 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/30 19:30:43 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/02/10 16:11:30 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,19 @@ static int	cleanup_err(int fd, t_list **map)
 {
 	char	*line;
 
-	line = get_next_line(fd);
-	while (line != NULL)
+	if (map)
+		ft_lstclear(map, free);
+	if (fd >= 0)
 	{
-		free(line);
 		line = get_next_line(fd);
+		while (line)
+		{
+			free(line);
+			line = get_next_line(fd);
+		}
+		close(fd);
 	}
+	return (1);
 }
 
 static void	free_list_nodes(t_list **lst)

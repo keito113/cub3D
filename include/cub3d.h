@@ -6,7 +6,7 @@
 /*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 10:16:11 by keitabe           #+#    #+#             */
-/*   Updated: 2026/01/30 19:10:10 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/02/10 15:53:46 by takawagu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 # define CUB3D_H
 
 # include "error.h"
+# include "keycode.h"
 # include "libft.h"
 # include "mlx.h"
-# include "keycode.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-# define MOVE_SPEED 0.1
-# define ROT_SPEED 0.1
+# define MOVE_SPEED 0.04
+# define ROT_SPEED 0.04
 
 # define HIT_X_SIDE 0
 # define HIT_Y_SIDE 1
-
 
 enum				e_tex
 {
