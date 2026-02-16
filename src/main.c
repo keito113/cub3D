@@ -10,18 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d.h" // "cub3d.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-int	main(int argc, char **argv)
-{
-	t_game	game;
+/* 関数概要: main - プログラム全体の起動シーケンスを実行する。引数(int argc, char **argv)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: ft_bzero() -> args_validate() -> game_prepare() -> game_run()。 */
+int	main(int argc, char **argv) // main関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	t_game	game; // 変数 game（ゲーム全体状態構造体） を宣言する
 
-	ft_bzero(&game, sizeof(game));
-	if (args_validate(&game, argc, argv))
-		return (1);
-	if (game_prepare(&game, argv))
-		return (1);
-	game_run(&game);
-	game_destroy(&game);
-	return (0);
-}
+	ft_bzero(&game, sizeof(game)); // game構造体全体をゼロクリアし、未初期化値の混入を防ぐ
+	if (args_validate(&game, argc, argv)) // args_validate()で起動引数の個数、拡張子が .cub かどうか、対象ファイルを開けるかを検証し、その戻り値が非0（真）なら分岐する
+		return (1); // 関数を終了し、1 を呼び出し元へ返す
+	if (game_prepare(&game, argv)) // game_prepare()でゲーム開始前に初期化・マップ読み込み・描画リソース準備を順番に完了させ、その戻り値が非0（真）なら分岐する
+		return (1); // 関数を終了し、1 を呼び出し元へ返す
+	game_run(&game); // game_run() を呼び出して、フック登録後にMLXメインループを開始する
+	game_destroy(&game); // game_destroy() を呼び出して、確保済み画像・ウィンドウ・マップ・設定メモリを解放する
+	return (0); // 関数を終了し、0 を呼び出し元へ返す
+} // ここでブロックスコープを終了する

@@ -10,29 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-	size_t	total_size;
+/* 関数概要: ft_calloc - ゼロ初期化済みメモリを確保する。引数(size_t count, size_t size)を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 主な内部呼び出し: malloc() -> ft_memset()。 */
+void	*ft_calloc(size_t count, size_t size) // ft_calloc関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	void	*ptr; // 変数 ptr（ptrの作業用値） を宣言する
+	size_t	total_size; // 変数 total_size（total_sizeの作業用値） を宣言する
 
-	if (count == 0 || size == 0)
-	{
-		ptr = malloc(1);
-		if (!ptr)
-			return (NULL);
-		return (ptr);
-	}
-	if (count > __SIZE_MAX__ / size)
-		return (NULL);
-	total_size = count * size;
-	ptr = malloc(total_size);
-	if (!ptr)
-		return (NULL);
-	ft_memset(ptr, 0, total_size);
-	return (ptr);
-}
+	if (count == 0 || size == 0) // count == 0 が成立する または size == 0 が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		ptr = malloc(1); // ptr に malloc(1) の計算結果を代入する
+		if (!ptr) // 条件(!ptr)が成立する場合に分岐する
+			return (NULL); // 関数を終了し、NULL を呼び出し元へ返す
+		return (ptr); // 関数を終了し、ptr を呼び出し元へ返す
+	} // ここでブロックスコープを終了する
+	if (count > __SIZE_MAX__ / size) // count > __SIZE_MAX__ / size が成立する場合に分岐する
+		return (NULL); // 関数を終了し、NULL を呼び出し元へ返す
+	total_size = count * size; // total_size に count * size の計算結果を代入する
+	ptr = malloc(total_size); // ptr に malloc(total_size) の計算結果を代入する
+	if (!ptr) // 条件(!ptr)が成立する場合に分岐する
+		return (NULL); // 関数を終了し、NULL を呼び出し元へ返す
+	ft_memset(ptr, 0, total_size); // ft_memset() を呼び出して、メモリ領域を指定値で埋める
+	return (ptr); // 関数を終了し、ptr を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

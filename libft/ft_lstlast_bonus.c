@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
-}
+/* 関数概要: ft_lstlast - リスト末尾ノードを取得する。引数(t_list *lst)を受け取り、成功/失敗または計算結果を戻り値で返す。 */
+t_list	*ft_lstlast(t_list *lst) // ft_lstlast関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	if (!lst) // 条件(!lst)が成立する場合に分岐する
+		return (NULL); // 関数を終了し、NULL を呼び出し元へ返す
+	while (lst->next != NULL) // lst- > next != NULL が成立する場合に分岐する
+		lst = lst->next; // lst に lst->next の計算結果を代入する
+	return (lst); // 関数を終了し、lst を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // int	main(void)
 // {

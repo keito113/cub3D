@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
+/* 関数概要: ft_putchar_fd - 1文字をファイルディスクリプタへ出力する。引数(char c, int fd)を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 主な内部呼び出し: write()。 */
+void	ft_putchar_fd(char c, int fd) // ft_putchar_fd関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	write(fd, &c, 1); // write() を呼び出して、writeを実行する
+} // ここでブロックスコープを終了する
 
 // int	main(void)
 // {

@@ -10,20 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-int	ft_lstsize(t_list *lst)
-{
-	int	count;
+/* 関数概要: ft_lstsize - リスト要素数を数える。引数(t_list *lst)を受け取り、成功/失敗または計算結果を戻り値で返す。 */
+int	ft_lstsize(t_list *lst) // ft_lstsize関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	int	count; // 変数 count（countの作業用値） を宣言する
 
-	count = 0;
-	while (lst != NULL)
-	{
-		count++;
-		lst = lst->next;
-	}
-	return (count);
-}
+	count = 0; // count に 0 の計算結果を代入する
+	while (lst != NULL) // lst != NULL が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		count++; // 文 `count++;` を実行する
+		lst = lst->next; // lst に lst->next の計算結果を代入する
+	} // ここでブロックスコープを終了する
+	return (count); // 関数を終了し、count を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // int	main(void)
 // {

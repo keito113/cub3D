@@ -10,51 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-static int	num_len(int n)
-{
-	int		len;
-	long	nb;
+/* 関数概要: num_len - num_lenを実行する。引数(int n)を受け取り、成功/失敗または計算結果を戻り値で返す。 */
+static int	num_len(int n) // num_len関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	int		len; // 変数 len（文字列長） を宣言する
+	long	nb; // 変数 nb（nbの作業用値） を宣言する
 
-	nb = n;
-	if (nb <= 0)
-		len = 1;
-	else
-		len = 0;
-	while (nb)
-	{
-		nb /= 10;
-		len++;
-	}
-	return (len);
-}
+	nb = n; // nb に n の計算結果を代入する
+	if (nb <= 0) // nb <= 0 が成立する場合に分岐する
+		len = 1; // len に 1 の計算結果を代入する
+	else // 直前のif/else if条件に当てはまらない場合の処理へ進む
+		len = 0; // len に 0 の計算結果を代入する
+	while (nb) // 条件(nb)が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		nb /= 10; // nb を /= で更新し、10 を反映する
+		len++; // 文 `len++;` を実行する
+	} // ここでブロックスコープを終了する
+	return (len); // 関数を終了し、len を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
-char	*ft_itoa(int n)
-{
-	char	*str;
-	int		len;
-	long	nb;
+/* 関数概要: ft_itoa - 整数を文字列へ変換する。引数(int n)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: num_len() -> malloc()。 */
+char	*ft_itoa(int n) // ft_itoa関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	char	*str; // 変数 str（strの作業用値） を宣言する
+	int		len; // 変数 len（文字列長） を宣言する
+	long	nb; // 変数 nb（nbの作業用値） を宣言する
 
-	len = num_len(n);
-	nb = n;
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	str[len--] = '\0';
-	if (nb < 0)
-	{
-		str[0] = '-';
-		nb = -nb;
-	}
-	while (nb >= 10)
-	{
-		str[len--] = nb % 10 + '0';
-		nb /= 10;
-	}
-	str[len] = nb + '0';
-	return (str);
-}
+	len = num_len(n); // len に num_len(n) の計算結果を代入する
+	nb = n; // nb に n の計算結果を代入する
+	str = malloc(len + 1); // str に malloc(len + 1) の計算結果を代入する
+	if (!str) // 条件(!str)が成立する場合に分岐する
+		return (NULL); // 関数を終了し、NULL を呼び出し元へ返す
+	str[len--] = '\0'; // str[len--] に '\0' の計算結果を代入する
+	if (nb < 0) // nb < 0 が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		str[0] = '-'; // str[0] に '-' の計算結果を代入する
+		nb = -nb; // nb に -nb の計算結果を代入する
+	} // ここでブロックスコープを終了する
+	while (nb >= 10) // nb >= 10 が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		str[len--] = nb % 10 + '0'; // str[len--] に nb % 10 + '0' の計算結果を代入する
+		nb /= 10; // nb を /= で更新し、10 を反映する
+	} // ここでブロックスコープを終了する
+	str[len] = nb + '0'; // str[len] に nb + '0' の計算結果を代入する
+	return (str); // 関数を終了し、str を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

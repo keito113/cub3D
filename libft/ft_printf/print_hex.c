@@ -10,36 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf.h" // "ft_printf.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-static int	putnbr_base_hex(unsigned int n, const char *base)
-{
-	int	len;
-	int	sub;
+/* 関数概要: putnbr_base_hex - putnbr_base_hexを実行する。引数(unsigned int n, const char *base)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: write()。 */
+static int	putnbr_base_hex(unsigned int n, const char *base) // putnbr_base_hex関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	int	len; // 変数 len（文字列長） を宣言する
+	int	sub; // 変数 sub（subの作業用値） を宣言する
 
-	len = 0;
-	if (n >= 16)
-	{
-		sub = putnbr_base_hex(n / 16, base);
-		if (sub < 0)
-			return (-1);
-		len += sub;
-	}
-	if (write(1, &base[n % 16], 1) < 0)
-		return (-1);
-	return (len + 1);
-}
+	len = 0; // len に 0 の計算結果を代入する
+	if (n >= 16) // n >= 16 が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		sub = putnbr_base_hex(n / 16, base); // sub に putnbr_base_hex(n / 16, base) の計算結果を代入する
+		if (sub < 0) // sub < 0 が成立する場合に分岐する
+			return (-1); // 関数を終了し、-1 を呼び出し元へ返す
+		len += sub; // len を += で更新し、sub を反映する
+	} // ここでブロックスコープを終了する
+	if (write(1, &base[n % 16], 1) < 0) // write(1, &base[n % 16], 1) < 0 が成立する場合に分岐する
+		return (-1); // 関数を終了し、-1 を呼び出し元へ返す
+	return (len + 1); // 関数を終了し、len + 1 を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
-int	print_hex(unsigned int hex_n, int uppercase)
-{
-	const char	*base;
+/* 関数概要: print_hex - hexを出力する。引数(unsigned int hex_n, int uppercase)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: putnbr_base_hex()。 */
+int	print_hex(unsigned int hex_n, int uppercase) // print_hex関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	const char	*base; // 変数 base（baseの作業用値） を宣言する
 
-	if (uppercase)
-		base = "0123456789ABCDEF";
-	else
-		base = "0123456789abcdef";
-	return (putnbr_base_hex(hex_n, base));
-}
+	if (uppercase) // 条件(uppercase)が成立する場合に分岐する
+		base = "0123456789ABCDEF"; // base に "0123456789ABCDEF" の計算結果を代入する
+	else // 直前のif/else if条件に当てはまらない場合の処理へ進む
+		base = "0123456789abcdef"; // base に "0123456789abcdef" の計算結果を代入する
+	return (putnbr_base_hex(hex_n, base)); // 関数を終了し、putnbr_base_hex(hex_n, base) を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

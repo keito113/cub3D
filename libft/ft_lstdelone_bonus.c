@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
+#include <stdlib.h> // <stdlib.h>を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
-{
-	if (!lst || !del)
-		return ;
-	del(lst->content);
-	free(lst);
-}
+/* 関数概要: void - voidを実行する。引数(t_list *lst, void (*del)(void *))を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 主な内部呼び出し: del() -> free()。 */
+void	ft_lstdelone(t_list *lst, void (*del)(void *)) // void関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	if (!lst || !del) // 条件(!lst)が成立する または 条件(!del)が成立する場合に分岐する
+		return ; // この時点で関数を終了して呼び出し元へ戻る
+	del(lst->content); // del() を呼び出して、delを実行する
+	free(lst); // free() を呼び出して、対象を解放する
+} // ここでブロックスコープを終了する
 
 // void	del(void *content)
 // {

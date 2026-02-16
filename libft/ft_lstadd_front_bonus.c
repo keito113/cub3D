@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
-{
-	if (lst && new)
-	{
-		new->next = *lst;
-		*lst = new;
-	}
-}
+/* 関数概要: ft_lstadd_front - ノードをリスト先頭へ追加する。引数(t_list **lst, t_list *new)を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 */
+void	ft_lstadd_front(t_list **lst, t_list *new) // ft_lstadd_front関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	if (lst && new) // 条件(lst)が成立する かつ 条件(new)が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		new->next = *lst; // new->next に *lst の計算結果を代入する
+		*lst = new; // 前行から続く式に演算を連結して計算を完成させる
+	} // ここでブロックスコープを終了する
+} // ここでブロックスコープを終了する
 
 // int	main(void)
 // {

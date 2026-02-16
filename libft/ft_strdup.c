@@ -10,26 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-char	*ft_strdup(const char *s)
-{
-	size_t	len;
-	size_t	i;
-	char	*copy;
+/* 関数概要: ft_strdup - 文字列を新規メモリへ複製する。引数(const char *s)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: ft_strlen() -> ft_calloc()。 */
+char	*ft_strdup(const char *s) // ft_strdup関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	size_t	len; // 変数 len（文字列長） を宣言する
+	size_t	i; // 変数 i（ループ用インデックス） を宣言する
+	char	*copy; // 変数 copy（copyの作業用値） を宣言する
 
-	len = ft_strlen(s);
-	copy = ft_calloc(len + 1, sizeof(char));
-	if (copy == NULL)
-		return ((NULL));
-	i = 0;
-	while (i < len)
-	{
-		copy[i] = s[i];
-		i++;
-	}
-	return (copy);
-}
+	len = ft_strlen(s); // len に ft_strlen(s) の計算結果を代入する
+	copy = ft_calloc(len + 1, sizeof(char)); // copy に ft_calloc(len + 1, sizeof(char)) の計算結果を代入する
+	if (copy == NULL) // copy == NULL が成立する場合に分岐する
+		return ((NULL)); // 関数を終了し、(NULL) を呼び出し元へ返す
+	i = 0; // i に 0 の計算結果を代入する
+	while (i < len) // i < len が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		copy[i] = s[i]; // copy[i] に s[i] の計算結果を代入する
+		i++; // 文 `i++;` を実行する
+	} // ここでブロックスコープを終了する
+	return (copy); // 関数を終了し、copy を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

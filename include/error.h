@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef ERROR_H // インクルードガードを開始し、ヘッダ重複展開を防ぐ
+# define ERROR_H // ERROR_Hマクロを定義する
 
-typedef enum e_errc
-{
-	ERR_USAGE = 1,
-	ERR_EXT,
-	ERR_OPEN,
-	ERR_PARSE,
-	ERR_MAP,
-	ERR_MLX,
-	ERR_IMG,
-	ERR_ALLOC
-}	t_errc;
+typedef enum e_errc // 式 `typedef enum e_errc` を評価して処理を進める
+{ // ここからブロックスコープを開始する
+	ERR_USAGE = 1, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_EXT, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_OPEN, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_PARSE, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_MAP, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_MLX, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_IMG, // 関数呼び出し引数をこの行で追加し、次行へ続ける
+	ERR_ALLOC // 式 `ERR_ALLOC` を評価して処理を進める
+}	t_errc; // 変数 t_errc（t_errcの作業用値） を宣言する
 
-#endif
+#endif // インクルードガード/条件コンパイルを終了する

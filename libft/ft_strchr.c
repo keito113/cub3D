@@ -10,23 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-char	*ft_strchr(const char *s, int c)
-{
-	int	i;
+/* 関数概要: ft_strchr - 文字列から指定文字の位置を探す。引数(const char *s, int c)を受け取り、成功/失敗または計算結果を戻り値で返す。 */
+char	*ft_strchr(const char *s, int c) // ft_strchr関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	int	i; // 変数 i（ループ用インデックス） を宣言する
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i++;
-	}
-	if ((char)c == '\0')
-		return ((char *)(s + i));
-	return (NULL);
-}
+	i = 0; // i に 0 の計算結果を代入する
+	while (s[i]) // 条件(s[i])が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		if (s[i] == (char)c) // s[i] == (char)c が成立する場合に分岐する
+			return ((char *)(s + i)); // 関数を終了し、(char *)(s + i) を呼び出し元へ返す
+		i++; // 文 `i++;` を実行する
+	} // ここでブロックスコープを終了する
+	if ((char)c == '\0') // (char)c == '\0' が成立する場合に分岐する
+		return ((char *)(s + i)); // 関数を終了し、(char *)(s + i) を呼び出し元へ返す
+	return (NULL); // 関数を終了し、NULL を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

@@ -10,33 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf.h" // "ft_printf.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-int	ft_printf(const char *format, ...)
-{
-	va_list	args;
-	int		i;
-	int		printed_len;
-	int		tmp;
+/* 関数概要: ft_printf - 可変長引数を使って書式付き文字列を出力する。引数(const char *format, ...)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: va_start() -> handle_format() -> va_end()。 */
+int	ft_printf(const char *format, ...) // ft_printf関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	va_list	args; // 変数 args（argsの作業用値） を宣言する
+	int		i; // 変数 i（ループ用インデックス） を宣言する
+	int		printed_len; // 変数 printed_len（printed_lenの作業用値） を宣言する
+	int		tmp; // 変数 tmp（tmpの作業用値） を宣言する
 
-	i = 0;
-	printed_len = 0;
-	if (!format)
-		return (-1);
-	va_start(args, format);
-	while (format[i])
-	{
-		tmp = handle_format(format, &args, &i);
-		if (tmp < 0)
-		{
-			va_end(args);
-			return (-1);
-		}
-		printed_len += tmp;
-	}
-	va_end(args);
-	return (printed_len);
-}
+	i = 0; // i に 0 の計算結果を代入する
+	printed_len = 0; // printed_len に 0 の計算結果を代入する
+	if (!format) // 条件(!format)が成立する場合に分岐する
+		return (-1); // 関数を終了し、-1 を呼び出し元へ返す
+	va_start(args, format); // va_start() を呼び出して、va_startを実行する
+	while (format[i]) // 条件(format[i])が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		tmp = handle_format(format, &args, &i); // tmp に handle_format(format, &args, &i) の計算結果を代入する
+		if (tmp < 0) // tmp < 0 が成立する場合に分岐する
+		{ // ここからブロックスコープを開始する
+			va_end(args); // va_end() を呼び出して、va_endを実行する
+			return (-1); // 関数を終了し、-1 を呼び出し元へ返す
+		} // ここでブロックスコープを終了する
+		printed_len += tmp; // printed_len を += で更新し、tmp を反映する
+	} // ここでブロックスコープを終了する
+	va_end(args); // va_end() を呼び出して、va_endを実行する
+	return (printed_len); // 関数を終了し、printed_len を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // int	main(void)
 // {

@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
-}
+/* 関数概要: ft_putstr_fd - 文字列をファイルディスクリプタへ出力する。引数(char *s, int fd)を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 主な内部呼び出し: write() -> ft_strlen()。 */
+void	ft_putstr_fd(char *s, int fd) // ft_putstr_fd関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	if (!s) // 条件(!s)が成立する場合に分岐する
+		return ; // この時点で関数を終了して呼び出し元へ戻る
+	write(fd, s, ft_strlen(s)); // write() を呼び出して、writeを実行する
+} // ここでブロックスコープを終了する
 
 // int	main(void)
 

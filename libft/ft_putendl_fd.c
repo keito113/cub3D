@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	while (*s != '\0')
-	{
-		ft_putchar_fd(*s, fd);
-		s++;
-	}
-	ft_putchar_fd('\n', fd);
-}
+/* 関数概要: ft_putendl_fd - 文字列末尾に改行を付けて出力する。引数(char *s, int fd)を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 主な内部呼び出し: ft_putchar_fd()。 */
+void	ft_putendl_fd(char *s, int fd) // ft_putendl_fd関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	while (*s != '\0') // *s != '\0' が成立する場合に分岐する
+	{ // ここからブロックスコープを開始する
+		ft_putchar_fd(*s, fd); // ft_putchar_fd() を呼び出して、1文字をファイルディスクリプタへ出力する
+		s++; // 文 `s++;` を実行する
+	} // ここでブロックスコープを終了する
+	ft_putchar_fd('\n', fd); // ft_putchar_fd() を呼び出して、1文字をファイルディスクリプタへ出力する
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

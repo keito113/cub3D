@@ -10,12 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" // "libft.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, 0, n);
-}
+/* 関数概要: ft_bzero - メモリ領域を0で埋める。引数(void *s, size_t n)を受け取り、必要な状態更新を反映して呼び出し元へ戻る。 主な内部呼び出し: ft_memset()。 */
+void	ft_bzero(void *s, size_t n) // ft_bzero関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	ft_memset(s, 0, n); // ft_memset() を呼び出して、メモリ領域を指定値で埋める
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 

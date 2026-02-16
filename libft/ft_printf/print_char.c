@@ -10,17 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf.h" // "ft_printf.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
 
-int	print_char(char c)
-{
-	ssize_t	ret;
+/* 関数概要: print_char - charを出力する。引数(char c)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: write()。 */
+int	print_char(char c) // print_char関数のシグネチャを定義し、ここから本体処理を記述する
+{ // ここからブロックスコープを開始する
+	ssize_t	ret; // 変数 ret（retの作業用値） を宣言する
 
-	ret = write(1, &c, 1);
-	if (ret < 0)
-		return (-1);
-	return ((int)ret);
-}
+	ret = write(1, &c, 1); // ret に write(1, &c, 1) の計算結果を代入する
+	if (ret < 0) // ret < 0 が成立する場合に分岐する
+		return (-1); // 関数を終了し、-1 を呼び出し元へ返す
+	return ((int)ret); // 関数を終了し、(int)ret を呼び出し元へ返す
+} // ここでブロックスコープを終了する
 
 // #include <stdio.h>
 
