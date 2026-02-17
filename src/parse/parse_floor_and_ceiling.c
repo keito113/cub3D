@@ -3,86 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   parse_floor_and_ceiling.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takawagu <takawagu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 18:52:26 by takawagu          #+#    #+#             */
-/*   Updated: 2026/01/26 19:17:45 by takawagu         ###   ########.fr       */
+/*   Updated: 2026/02/16 16:54:35 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h" // "cub3d.h"を読み込み、必要な型・定数・関数宣言を参照可能にする
+#include "cub3d.h" // cub3d.h を読み込み（t_gameやconfig構造体、libft関数宣言などを使えるようにする）
 
-static int	parse_color_channel(const char *str, int *out); // parse_color_channel() の関数宣言。目的: color・channelを解析する
-static int	parse_color(int *out, char *s); // parse_color() の関数宣言。目的: colorを解析する
+static int	parse_color_channel(const char *str, int *out);
+// "0"〜"255"の数値文字列を解析して out に入れる関数（内部用）
+static int	parse_color(int *out, char *s);
+// "R,G,B" 形式を解析して 0xRRGGBB を out に入れる関数（内部用）
 
-/* 関数概要: parse_floor_and_ceil - 床・and・天井を解析する。引数(t_game *game, int key_len, char key, char *rest)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: parse_color()。 */
-int	parse_floor_and_ceil(t_game *game, int key_len, char key, char *rest) // parse_floor_and_ceil関数のシグネチャを定義し、ここから本体処理を記述する
-{ // ここからブロックスコープを開始する
-	if (key_len != 1) // key_len != 1 が成立する場合に分岐する
-		return (1); // 関数を終了し、1 を呼び出し元へ返す
-	if (key == 'F') // key == 'F' が成立する場合に分岐する
-	{ // ここからブロックスコープを開始する
-		if (game->config.parsed.floor) // game- > config.parsed.floor が成立する場合に分岐する
-			return (-1); // 関数を終了し、-1 を呼び出し元へ返す
-		if (parse_color(&game->config.floor_color, rest)) // parse_color()でcolorを解析し、その戻り値が非0（真）なら分岐する
-			return (-1); // 関数を終了し、-1 を呼び出し元へ返す
-		game->config.parsed.floor = 1; // game->config.parsed.floor に 1 の計算結果を代入する
-		return (0); // 関数を終了し、0 を呼び出し元へ返す
-	} // ここでブロックスコープを終了する
-	if (key == 'C') // key == 'C' が成立する場合に分岐する
-	{ // ここからブロックスコープを開始する
-		if (game->config.parsed.ceil) // game- > config.parsed.ceil が成立する場合に分岐する
-			return (-1); // 関数を終了し、-1 を呼び出し元へ返す
-		if (parse_color(&game->config.ceil_color, rest)) // parse_color()でcolorを解析し、その戻り値が非0（真）なら分岐する
-			return (-1); // 関数を終了し、-1 を呼び出し元へ返す
-		game->config.parsed.ceil = 1; // game->config.parsed.ceil に 1 の計算結果を代入する
-		return (0); // 関数を終了し、0 を呼び出し元へ返す
-	} // ここでブロックスコープを終了する
-	return (1); // 関数を終了し、1 を呼び出し元へ返す
-} // ここでブロックスコープを終了する
+/*
+ * parse_floor_and_ceil
+ *  - .cub の "F ..."（床）または "C ..."（天井）を解析して config に保存する
+ * 戻り値:
+ *  - 0  : 成功（この行を処理した）
+ *  - -1 : エラー（重複 or 色の形式が不正）
+ *  - 1  : この関数の担当外（key_len不一致、F/C以外など）
+ */
+int	parse_floor_and_ceil(t_game *game, int key_len, char key, char *rest)
+// rest は "220,100,0" のような色部分
+{
+	if (key_len != 1) // キーが1文字（F/C）でないなら担当外
+		return (1);   // 上位の解析へ回す（この関数では処理しない）
 
-/* 関数概要: parse_color_channel - color・channelを解析する。引数(const char *str, int *out)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: ft_isdigit()。 */
-static int	parse_color_channel(const char *str, int *out) // parse_color_channel関数のシグネチャを定義し、ここから本体処理を記述する
-{ // ここからブロックスコープを開始する
-	long	n; // 変数 n（nの作業用値） を宣言する
+	if (key == 'F') // 床色（Floor）の指定行なら
+	{
+		if (game->config.parsed.floor) // 既に床色が設定済みなら（重複）
+			return (-1);
+		// エラー（同じ要素の複数指定を禁止したい）
+		if (parse_color(&game->config.floor_color, rest)) // "R,G,B" を解析（失敗なら非0）
+			return (-1);                                  // エラー（形式不正、範囲外など）
+		game->config.parsed.floor = 1;                    // 「床色を読み取った」フラグを立てる
+		return (0);                                       // 成功
+	}
 
-	if (!*str) // 条件(!*str)が成立する場合に分岐する
-		return (1); // 関数を終了し、1 を呼び出し元へ返す
-	n = 0; // n に 0 の計算結果を代入する
-	while (*str) // 条件(*str)が成立する場合に分岐する
-	{ // ここからブロックスコープを開始する
-		if (!ft_isdigit(*str)) // ft_isdigit()で数字か判定した結果が偽（条件不成立）なら分岐する
-			return (1); // 関数を終了し、1 を呼び出し元へ返す
-		n = n * 10 + (*str - '0'); // n に n * 10 + (*str - '0') の計算結果を代入する
-		if (n < 0 || 255 < n) // n < 0 が成立する または 255 < n が成立する場合に分岐する
-			return (1); // 関数を終了し、1 を呼び出し元へ返す
-		str++; // 文 `str++;` を実行する
-	} // ここでブロックスコープを終了する
-	*out = (int)n; // 前行から続く式に演算を連結して計算を完成させる
-	return (0); // 関数を終了し、0 を呼び出し元へ返す
-} // ここでブロックスコープを終了する
+	if (key == 'C') // 天井色（Ceiling）の指定行なら
+	{
+		if (game->config.parsed.ceil)                    // 既に天井色が設定済みなら（重複）
+			return (-1);                                 // エラー
+		if (parse_color(&game->config.ceil_color, rest)) // "R,G,B" を解析（失敗なら非0）
+			return (-1);                                 // エラー
+		game->config.parsed.ceil = 1;                    // 「天井色を読み取った」フラグを立てる
+		return (0);                                      // 成功
+	}
 
-/* 関数概要: parse_color - colorを解析する。引数(int *color, char *str)を受け取り、成功/失敗または計算結果を戻り値で返す。 主な内部呼び出し: ft_split() -> free_split() -> parse_color_channel()。 */
-static int	parse_color(int *color, char *str) // parse_color関数のシグネチャを定義し、ここから本体処理を記述する
-{ // ここからブロックスコープを開始する
-	char	**vec; // 変数 vec（vecの作業用値） を宣言する
-	int		r; // 変数 r（赤成分） を宣言する
-	int		g; // 変数 g（緑成分） を宣言する
-	int		b; // 変数 b（青成分） を宣言する
+	return (1); // F/C以外は担当外
+}
 
-	vec = ft_split(str, ','); // vec に ft_split(str, ',') の計算結果を代入する
-	if (!vec || !vec[0] || !vec[1] || !vec[2] || vec[3]) // 条件(!vec)が成立する または 条件(!vec[0])が成立する または 条件(!vec[1])が成立する または 条件(!vec[2])が成立する または 条件(vec[3])が成立する場合に分岐する
-	{ // ここからブロックスコープを開始する
-		free_split(vec); // free_split() を呼び出して、splitを解放する
-		return (1); // 関数を終了し、1 を呼び出し元へ返す
-	} // ここでブロックスコープを終了する
-	if (parse_color_channel(vec[0], &r) || parse_color_channel(vec[1], &g) // parse_color_channel()でcolor・channelを解析した戻り値が真（非0）である または 条件(parse_color_channel(vec[1], &g)が成立する場合に分岐する
-		|| parse_color_channel(vec[2], &b)) // 前行の条件式へ OR 条件を追加する
-	{ // ここからブロックスコープを開始する
-		free_split(vec); // free_split() を呼び出して、splitを解放する
-		return (1); // 関数を終了し、1 を呼び出し元へ返す
-	} // ここでブロックスコープを終了する
-	free_split(vec); // free_split() を呼び出して、splitを解放する
-	*color = (r << 16) | (g << 8) | b; // 前行から続く式に演算を連結して計算を完成させる
-	return (0); // 関数を終了し、0 を呼び出し元へ返す
-} // ここでブロックスコープを終了する
+/*
+ * parse_color_channel
+ *  - str が "0"〜"255" の10進数字だけで構成されていることを確認し、数値化して out に入れる
+ *  - 数字以外が混ざる / 空文字 / 範囲外ならエラー
+ */
+static int	parse_color_channel(const char *str, int *out) // out に 0〜255 を格納したい
+{
+	long n; // 途中計算用（intより安全に大きめで受ける）
+
+	if (!*str)      // 先頭が '\0' なら空文字 → NG
+		return (1); // 失敗
+
+	n = 0;       // 数値を0から組み立てる
+	while (*str) // 文字列の終端まで1文字ずつ見る
+	{
+		if (!ft_isdigit(*str))     // 数字('0'〜'9')以外が来たら
+			return (1);            // 失敗（例: 空白、符号、文字などはNG）
+		n = n * 10 + (*str - '0'); // 10進数として桁を追加（例: "25" → 2→25）
+		if (n < 0 || 255 < n)      // RGBは0〜255に限定
+			return (1);            // 範囲外なら失敗（例: 256）
+		str++;                     // 次の文字へ進む
+	}
+	*out = (int)n; // long から int に詰める（範囲チェック済みなので安全）
+	return (0);    // 成功
+}
+
+/*
+ * parse_color
+ *  - "R,G,B" を解析して 0xRRGGBB 形式のintに変換する
+ *  - 要素数が3つちょうどであること、各要素が 0〜255 の数字だけであることを保証する
+ */
+static int	parse_color(int *color, char *str) // color に 0xRRGGBB を格納する
+{
+	char **vec; // "R","G","B" に分解した配列
+	int r;      // 赤成分（0〜255）
+	int g;      // 緑成分（0〜255）
+	int b;      // 青成分（0〜255）
+
+	vec = ft_split(str, ',');
+	// ',' で分割（例: "220,100,0" → ["220","100","0",NULL]）
+	if (!vec || !vec[0] || !vec[1] || !vec[2] || vec[3])
+	// 失敗 or 要素が3つでない（多すぎ/少なすぎ）
+	{
+		free_split(vec); // vec が NULL でも安全に解放できる実装を想定
+		return (1);      // 失敗
+	}
+
+	if (parse_color_channel(vec[0], &r)     // Rを0〜255として解析（失敗なら非0）
+		|| parse_color_channel(vec[1], &g)  // Gを解析
+		|| parse_color_channel(vec[2], &b)) // Bを解析
+	{
+		free_split(vec); // splitした配列を解放
+		return (1);      // 失敗
+	}
+
+	free_split(vec); // ここまで来たら vec は不要なので解放
+
+	*color = (r << 16) | (g << 8) | b; // 0xRRGGBB に詰める（Rを上位、G中位、B下位）
+	return (0);                        // 成功
+}
